@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="now()" dbms="mysql, mariadb"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="clob" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="varchar(36)" dbms="h2, mysql, mariadb"/>
+
+    <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302072513_added_entity_CategoryMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302072724_added_entity_SubCategoryMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302072841_added_entity_SubjectMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302085339_added_entity_SubSubjectMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302085657_added_entity_TopicMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302090156_added_entity_SubTopicMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302145758_added_entity_QuestionMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302151018_added_entity_QuestionTypeMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302151018_added_entity_QuestionTypeCategoryMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302151123_added_entity_DifficultyTypeMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210303062853_added_entity_AnswerMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210305033955_added_entity_ExamMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210305040306_added_entity_QuestionBluePrintMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210305041400_added_entity_QuestionBluePrintDetail.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210310040416_added_entity_QuestionBankMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425054009_added_entity_CollegeMaster.xml" relativeToChangelogFile="false"/>
+
+    <include file="config/liquibase/changelog/20210425054009_added_entity_ConfigMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425054249_added_entity_constraints_QuestionTypeMaster.xml" relativeToChangelogFile="false"/>
+
+    <include file="config/liquibase/changelog/20210302151018_added_entity_QuestionChoiceMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425054249_added_entity_DepartmentMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425054514_added_entity_CourseMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425124257_added_entity_TestEntity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425125930_added_entity_QbMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426040446_added_entity_QpBankUploadMaster.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20210302072724_added_entity_constraints_SubCategoryMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302072841_added_entity_constraints_SubjectMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302085339_added_entity_constraints_SubSubjectMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302085657_added_entity_constraints_TopicMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302090156_added_entity_constraints_SubTopicMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302145758_added_entity_constraints_QuestionMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210303062853_added_entity_constraints_AnswerMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210305041400_added_entity_constraints_QuestionBluePrintDetail.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425054249_added_entity_constraints_DepartmentMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210425054514_added_entity_constraints_CourseMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426040446_added_entity_constraints_QpBankUploadMaster.xml" relativeToChangelogFile="false"/>
+
+    <include file="config/liquibase/changelog/20210302072513_added_entity_ExamQuestionPaperMaster.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302072724_added_entity_constraints_ExamQuestionPaperMaster.xml" relativeToChangelogFile="false"/>
+
+    <include file="config/liquibase/changelog/20210302072724_added_entity_ExamQuestionPaperDetail.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210302072724_added_entity_constraints_ExamQuestionPaperDetail.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210426040446_added_entity_ShedLock.xml" relativeToChangelogFile="false"/>
+
+
+
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
+</databaseChangeLog>

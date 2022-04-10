@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="questionBankMaster">
+            <h2><span>Question Bank</span> {{ questionBankMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Question Bank File</span></dt>
+                <dd>
+                    <div *ngIf="questionBankMaster.questionBankFile">
+                        <a (click)="openFile(questionBankMaster.questionBankFileContentType, questionBankMaster.questionBankFile)">open</a>
+                        {{ questionBankMaster.questionBankFileContentType }}, {{ byteSize(questionBankMaster.questionBankFile) }}
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/question-bank-master', questionBankMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

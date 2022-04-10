@@ -1,0 +1,178 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-qb-master-heading">Create or edit a Qb Master</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qbFile">Qb File</label>
+                    <div>
+                        <div *ngIf="editForm.get('qbFile')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('qbFileContentType')!.value, editForm.get('qbFile')!.value)">open</a><br>
+                            <span class="pull-left">{{ editForm.get('qbFileContentType')!.value }}, {{ byteSize(editForm.get('qbFile')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({qbFile: null});editForm.patchValue({qbFileContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_qbFile" (change)="setFileData($event, 'qbFile', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="qbFile" id="field_qbFile"
+                           formControlName="qbFile"/>
+                    <input type="hidden" class="form-control" name="qbFileContentType" id="field_qbFileContentType"
+                           formControlName="qbFileContentType" />
+                    <div *ngIf="editForm.get('qbFile')!.invalid && (editForm.get('qbFile')!.dirty || editForm.get('qbFile')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('qbFile')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_collegeMaster">College Master</label>
+                    <select class="form-control" id="field_collegeMaster" name="collegeMaster" formControlName="collegeMaster" >
+                        <option *ngIf="!editForm.get('collegeMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="collegeMasterOption.id === editForm.get('collegeMaster')!.value?.id ? editForm.get('collegeMaster')!.value : collegeMasterOption" *ngFor="let collegeMasterOption of collegemasters; trackBy: trackById">{{ collegeMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('collegeMaster')!.invalid && (editForm.get('collegeMaster')!.dirty || editForm.get('collegeMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('collegeMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_departmentMaster">Department Master</label>
+                    <select class="form-control" id="field_departmentMaster" name="departmentMaster" formControlName="departmentMaster">
+                        <option *ngIf="!editForm.get('departmentMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="departmentMasterOption.id === editForm.get('departmentMaster')!.value?.id ? editForm.get('departmentMaster')!.value : departmentMasterOption" *ngFor="let departmentMasterOption of departmentmasters; trackBy: trackByDeptId">{{ departmentMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('departmentMaster')!.invalid && (editForm.get('departmentMaster')!.dirty || editForm.get('departmentMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('departmentMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_courseMaster">Course Master</label>
+                    <select class="form-control" id="field_courseMaster" name="courseMaster" formControlName="courseMaster">
+                        <option *ngIf="!editForm.get('courseMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="courseMasterOption.id === editForm.get('courseMaster')!.value?.id ? editForm.get('courseMaster')!.value : courseMasterOption" *ngFor="let courseMasterOption of coursemasters; trackBy: trackByCourseId">{{ courseMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('courseMaster')!.invalid && (editForm.get('courseMaster')!.dirty || editForm.get('courseMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('courseMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_categoryMaster">Category Master</label>
+                    <select class="form-control" id="field_categoryMaster" name="categoryMaster" formControlName="categoryMaster">
+                        <option *ngIf="!editForm.get('categoryMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="categoryMasterOption.id === editForm.get('categoryMaster')!.value?.id ? editForm.get('categoryMaster')!.value : categoryMasterOption" *ngFor="let categoryMasterOption of categorymasters; trackBy: trackByCategoryId">{{ categoryMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('categoryMaster')!.invalid && (editForm.get('categoryMaster')!.dirty || editForm.get('categoryMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('categoryMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_subCategoryMaster">Sub Category Master</label>
+                    <select class="form-control" id="field_subCategoryMaster" name="subCategoryMaster" formControlName="subCategoryMaster">
+                        <option *ngIf="!editForm.get('subCategoryMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="subCateogryMasterOption.id === editForm.get('subCategoryMaster')!.value?.id ? editForm.get('subCategoryMaster')!.value : subCateogryMasterOption" *ngFor="let subCateogryMasterOption of subcategorymasters; trackBy: trackBySubCategoryId">{{ subCateogryMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('subCategoryMaster')!.invalid && (editForm.get('subCategoryMaster')!.dirty || editForm.get('subCategoryMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subCateogryMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_subjectMaster">Subject</label>
+                    <select class="form-control" id="field_subjectMaster" name="subjectMaster" formControlName="subjectMaster">
+                        <option *ngIf="!editForm.get('subjectMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="subjectMasterOption.id === editForm.get('subjectMaster')!.value?.id ? editForm.get('subjectMaster')!.value : subjectMasterOption" *ngFor="let subjectMasterOption of subjectmasters; trackBy: trackBySubjectId">{{ subjectMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('subjectMaster')!.invalid && (editForm.get('subjectMaster')!.dirty || editForm.get('subjectMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subjectMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_subSubjectMaster">Sub Subject</label>
+                    <select class="form-control" id="field_subSubjectMaster" name="subSubjectMaster" formControlName="subSubjectMaster">
+                        <option *ngIf="!editForm.get('courseMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="subSubjectMasterOption.id === editForm.get('subSubjectMaster')!.value?.id ? editForm.get('subSubjectMaster')!.value : subSubjectMasterOption" *ngFor="let subSubjectMasterOption of subsubjectmasters; trackBy: trackBySubSubjectId">{{ subSubjectMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('subSubjectMaster')!.invalid && (editForm.get('subSubjectMaster')!.dirty || editForm.get('subSubjectMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subSubjectMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_topicMaster">Topic</label>
+                    <select class="form-control" id="field_topicMaster" name="topicMaster" formControlName="topicMaster">
+                        <option *ngIf="!editForm.get('courseMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="topicMasterOption.id === editForm.get('topicMaster')!.value?.id ? editForm.get('topicMaster')!.value : topicMasterOption" *ngFor="let topicMasterOption of topicmasters; trackBy: trackByTopicId">{{ topicMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('topicMaster')!.invalid && (editForm.get('topicMaster')!.dirty || editForm.get('topicMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('topicMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_subTopicMaster">Sub Topic</label>
+                    <select class="form-control" id="field_subTopicMaster" name="subTopicMaster" formControlName="subTopicMaster">
+                        <option *ngIf="!editForm.get('courseMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="subTopicMasterOption.id === editForm.get('subTopicMaster')!.value?.id ? editForm.get('subTopicMaster')!.value : subTopicMasterOption" *ngFor="let subTopicMasterOption of subtopicmasters; trackBy: trackBySubTopicId">{{ subTopicMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('subTopicMaster')!.invalid && (editForm.get('subTopicMaster')!.dirty || editForm.get('subTopicMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subTopicMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

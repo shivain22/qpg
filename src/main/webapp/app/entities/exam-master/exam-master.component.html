@@ -1,0 +1,143 @@
+<div>
+    <h2 id="page-heading">
+        <span>Exam Masters</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-exam-master" [routerLink]="['/exam-master/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Exam Master
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="examMasters?.length === 0">
+        <span>No examMasters found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="examMasters && examMasters.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="title"><span>Title</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="startDate"><span>Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="collegeMaster.name"><span>College</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="departmentMaster.name"><span>Dept</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="courseMaster.name"><span>Course</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="categoryMaster.name"><span>Category</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subCategoryMaster.name"><span>Sub Cat</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subjectMaster.name"><span>Subject</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="categoryMaster.name"><span>Sub Subject</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="categoryMaster.name"><span>Topic</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="categoryMaster.name"><span>Sub Topic</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let examMaster of examMasters ;trackBy: trackId">
+                    <td><a [routerLink]="['/exam-master', examMaster.id, 'view']">{{ examMaster.id }}</a></td>
+                    <td>{{ examMaster.title }}</td>
+                    <td>{{ examMaster.startDate | date:'mediumDate' }}</td>
+
+                    <td>
+                        <div *ngIf="examMaster.subjectMaster">
+                            <a [routerLink]="['/college-master', examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.id, 'view']" >{{ examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subjectMaster">
+                            <a [routerLink]="['/department-master', examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.id, 'view']" >{{ examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subjectMaster">
+                            <a [routerLink]="['/course-master', examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.courseMaster?.id, 'view']" >{{ examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.courseMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subjectMaster">
+                            <a [routerLink]="['/category-master', examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.id, 'view']" >{{ examMaster.subjectMaster.subCategoryMaster?.categoryMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subjectMaster">
+                            <a [routerLink]="['/sub-category-master', examMaster.subjectMaster.subCategoryMaster?.id, 'view']" >{{ examMaster.subjectMaster.subCategoryMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subjectMaster">
+                            <a [routerLink]="['/subject-master', examMaster.subjectMaster?.id, 'view']" >{{ examMaster.subjectMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subSubjectMaster">
+                            <a [routerLink]="['/sub-subject-master', examMaster.subSubjectMaster?.id, 'view']" >{{ examMaster.subSubjectMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.topicMaster">
+                            <a [routerLink]="['/topic-master', examMaster.topicMaster?.id, 'view']" >{{ examMaster.topicMaster?.name }}</a>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div *ngIf="examMaster.subTopicMaster">
+                            <a [routerLink]="['/sub-topic-master', examMaster.subTopicMaster?.id, 'view']" >{{ examMaster.subTopicMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/exam-master', examMaster.id, 'generateQuestionPaper']"
+                                    class="btn btn-warning btn-sm">
+                                <fa-icon icon="list"></fa-icon>
+                                <span class="d-none d-md-inline">Generate Question Paper</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/exam-master', examMaster.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/exam-master', examMaster.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(examMaster)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="examMasters && examMasters.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

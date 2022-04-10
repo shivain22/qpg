@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-qp-bank-upload-master-heading">Create or edit a Qp Bank Upload Master</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qpBankFile">Qp Bank File</label>
+                    <div>
+                        <div *ngIf="editForm.get('qpBankFile')!.value" class="form-text text-danger clearfix">
+                            <a class="pull-left" (click)="openFile(editForm.get('qpBankFileContentType')!.value, editForm.get('qpBankFile')!.value)">open</a><br>
+                            <span class="pull-left">{{ editForm.get('qpBankFileContentType')!.value }}, {{ byteSize(editForm.get('qpBankFile')!.value) }}</span>
+                            <button type="button" (click)="editForm.patchValue({qpBankFile: null});editForm.patchValue({qpBankFileContentType: null});"
+                                    class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_qpBankFile" (change)="setFileData($event, 'qpBankFile', false)"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="qpBankFile" id="field_qpBankFile"
+                           formControlName="qpBankFile"/>
+                    <input type="hidden" class="form-control" name="qpBankFileContentType" id="field_qpBankFileContentType"
+                           formControlName="qpBankFileContentType" />
+                    <div *ngIf="editForm.get('qpBankFile')!.invalid && (editForm.get('qpBankFile')!.dirty || editForm.get('qpBankFile')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('qpBankFile')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.minlength">
+                        This field is required to be at least 5 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.maxlength">
+                        This field cannot be longer than 500 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_subTopicMaster">Sub Topic Master</label>
+                    <select class="form-control" id="field_subTopicMaster" name="subTopicMaster" formControlName="subTopicMaster">
+                        <option *ngIf="!editForm.get('subTopicMaster')!.value" [ngValue]="null" selected></option>
+                        <option [ngValue]="subTopicMasterOption.id === editForm.get('subTopicMaster')!.value?.id ? editForm.get('subTopicMaster')!.value : subTopicMasterOption" *ngFor="let subTopicMasterOption of subtopicmasters; trackBy: trackById">{{ subTopicMasterOption.name }}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('subTopicMaster')!.invalid && (editForm.get('subTopicMaster')!.dirty || editForm.get('subTopicMaster')!.touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subTopicMaster')?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

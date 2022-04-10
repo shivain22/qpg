@@ -1,0 +1,113 @@
+<div>
+    <h2 id="page-heading">
+        <span>Topics</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-topic-master" [routerLink]="['/topic-master/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Topic
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="topicMasters?.length === 0">
+        <span>No topicMasters found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="topicMasters && topicMasters.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="name"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.name"><span>Sub Subject</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.subjectMaster.name"><span>Subject</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.subjectMaster.subCategoryMaster.name"><span>Sub Category</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.subjectMaster.subCategoryMaster.categoryMaster.name"><span>Category</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.subjectMaster.subCategoryMaster.categoryMaster.courseMaster.name"><span>Course</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.subjectMaster.subCategoryMaster.categoryMaster.courseMaster.departmentMaster.name"><span>Department</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster.subjectMaster.subCategoryMaster.categoryMaster.courseMaster.departmentMaster.collegeMaster.name"><span>College</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let topicMaster of topicMasters ;trackBy: trackId">
+                    <td><a [routerLink]="['/topic-master', topicMaster.id, 'view']">{{ topicMaster.id }}</a></td>
+                    <td>{{ topicMaster.name }}</td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster">
+                            <a [routerLink]="['/sub-subject-master', topicMaster?.subSubjectMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster">
+                            <a [routerLink]="['/subject-master', topicMaster?.subSubjectMaster?.subjectMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.subjectMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster">
+                            <a [routerLink]="['/sub-category-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster">
+                            <a [routerLink]="['/category-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster">
+                            <a [routerLink]="['/course-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster">
+                            <a [routerLink]="['/department-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster">
+                            <a [routerLink]="['/college-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.id, 'view']" >{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.name }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/topic-master', topicMaster.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/topic-master', topicMaster.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(topicMaster)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="topicMasters && topicMasters.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

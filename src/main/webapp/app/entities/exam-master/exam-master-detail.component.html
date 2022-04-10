@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="examMaster">
+            <h2><span>Exam Master</span> {{ examMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{ examMaster.title }}</span>
+                </dd>
+                <dt><span>Start Date</span></dt>
+                <dd>
+                    <span>{{ examMaster.startDate }}</span>
+                </dd>
+
+                <dt><span>College</span></dt>
+                <dd>
+                    <span>{{ examMaster.collegeMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Department</span></dt>
+                <dd>
+                    <span>{{ examMaster.departmentMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Course</span></dt>
+                <dd>
+                    <span>{{ examMaster.courseMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Category</span></dt>
+                <dd>
+                    <span>{{ examMaster.categoryMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Sub Category</span></dt>
+                <dd>
+                    <span>{{ examMaster.subCategoryMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Subject</span></dt>
+                <dd>
+                    <span>{{ examMaster.subjectMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Sub Subject</span></dt>
+                <dd>
+                    <span>{{ examMaster.subSubjectMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Topic</span></dt>
+                <dd>
+                    <span>{{ examMaster.topicMaster?.name }}</span>
+                </dd>
+
+                <dt><span>Sub Topic</span></dt>
+                <dd>
+                    <span>{{ examMaster.subTopicMaster?.name }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/exam-master', examMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

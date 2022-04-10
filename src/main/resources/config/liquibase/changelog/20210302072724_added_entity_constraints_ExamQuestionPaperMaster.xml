@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity SubCategoryMaster.
+    -->
+    <changeSet id="20210302072724-4" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="exam_master_id"
+                                 baseTableName="exam_question_paper_master"
+                                 constraintName="fk_exam_master_exam_qp_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="exam_master"/>
+
+    </changeSet>
+</databaseChangeLog>

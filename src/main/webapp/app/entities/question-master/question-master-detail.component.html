@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="questionMaster">
+            <h2><span>Question Master</span> {{ questionMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Text</span></dt>
+                <dd>
+                    <div [innerHTML]="questionMaster.text"></div>
+                </dd>
+                <dt><span>Weightage</span></dt>
+                <dd>
+                    <span>{{ questionMaster.weightage }}</span>
+                </dd>
+                <dt><span>Question Type Master</span></dt>
+                <dd>
+                    <div *ngIf="questionMaster.questionTypeMaster">
+                        <a [routerLink]="['/question-type-master', questionMaster.questionTypeMaster?.id, 'view']">{{ questionMaster.questionTypeMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Difficulty Type Master</span></dt>
+                <dd>
+                    <div *ngIf="questionMaster.difficultyTypeMaster">
+                        <a [routerLink]="['/difficulty-type-master', questionMaster.difficultyTypeMaster?.id, 'view']">{{ questionMaster.difficultyTypeMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Sub Topic Master</span></dt>
+                <dd>
+                    <div *ngIf="questionMaster.subTopicMaster">
+                        <a [routerLink]="['/sub-topic-master', questionMaster.subTopicMaster?.id, 'view']">{{ questionMaster.subTopicMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Parent Question Master</span></dt>
+                <dd>
+                    <div *ngIf="questionMaster.parentQuestionMaster">
+                        <a [routerLink]="['/question-master', questionMaster.parentQuestionMaster?.id, 'view']">{{ questionMaster.parentQuestionMaster?.text }}</a>
+                    </div>
+                </dd>
+
+                <dt><span>Answer(s)</span></dt>
+                <dd>
+                    <div *ngIf="questionMaster.answerMasters">
+                        <div *ngFor="let answerMaster of questionMaster.answerMasters;">
+                            <div [innerHTML]="answerMaster.text"></div>
+                        </div>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/question-master', questionMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

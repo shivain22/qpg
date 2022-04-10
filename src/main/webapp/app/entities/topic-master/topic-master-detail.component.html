@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="topicMaster">
+            <h2><span>Topic Master</span> {{ topicMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ topicMaster.name }}</span>
+                </dd>
+                <dt><span>Sub Subject</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster.subSubjectMaster">
+                        <a [routerLink]="['/sub-subject-master', topicMaster.subSubjectMaster?.id, 'view']">{{ topicMaster.subSubjectMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Subject</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster">
+                        <a [routerLink]="['/subject-master', topicMaster?.subSubjectMaster?.subjectMaster?.id, 'view']">{{ topicMaster?.subSubjectMaster?.subjectMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Sub Category</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster">
+                        <a [routerLink]="['/sub-category-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.id, 'view']">{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster">
+                        <a [routerLink]="['/category-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.id, 'view']">{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Course</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster">
+                        <a [routerLink]="['/course-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.id, 'view']">{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Department</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster">
+                        <a [routerLink]="['/department-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.id, 'view']">{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.name }}</a>
+                    </div>
+                </dd>
+
+                <dt><span>College</span></dt>
+                <dd>
+                    <div *ngIf="topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster">
+                        <a [routerLink]="['/college-master', topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.id, 'view']">{{ topicMaster?.subSubjectMaster?.subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.name }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/topic-master', topicMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

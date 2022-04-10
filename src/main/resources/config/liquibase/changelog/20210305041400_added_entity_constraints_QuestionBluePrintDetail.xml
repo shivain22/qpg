@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity QuestionBluePrintDetail.
+    -->
+    <changeSet id="20210305041400-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="question_type_master_id"
+                                 baseTableName="question_blue_print_detail"
+                                 constraintName="fk_question_blue_print_detail_question_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="difficulty_type_master_id"
+                                 baseTableName="question_blue_print_detail"
+                                 constraintName="fk_question_blue_print_detail_difficulty_type_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="difficulty_type_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="question_choice_master_id"
+                                 baseTableName="question_blue_print_detail"
+                                 constraintName="fk_question_blue_print_detail_question_choice_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_choice_master"/>
+
+        <addForeignKeyConstraint baseColumnNames="question_blue_print_master_id"
+                                 baseTableName="question_blue_print_detail"
+                                 constraintName="fk_question_blue_print_detail_question_blue_print_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="question_blue_print_master"/>
+
+    </changeSet>
+</databaseChangeLog>

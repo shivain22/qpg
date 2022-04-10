@@ -1,0 +1,43 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="qpBankUploadMaster">
+            <h2><span>Qp Bank Upload Master</span> {{ qpBankUploadMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Qp Bank File</span></dt>
+                <dd>
+                    <div *ngIf="qpBankUploadMaster.qpBankFile">
+                        <a (click)="openFile(qpBankUploadMaster.qpBankFileContentType, qpBankUploadMaster.qpBankFile)">open</a>
+                        {{ qpBankUploadMaster.qpBankFileContentType }}, {{ byteSize(qpBankUploadMaster.qpBankFile) }}
+                    </div>
+                </dd>
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ qpBankUploadMaster.name }}</span>
+                </dd>
+                <dt><span>Sub Topic Master</span></dt>
+                <dd>
+                    <div *ngIf="qpBankUploadMaster.subTopicMaster">
+                        <a [routerLink]="['/sub-topic-master', qpBankUploadMaster.subTopicMaster?.id, 'view']">{{ qpBankUploadMaster.subTopicMaster?.name }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/qp-bank-upload-master', qpBankUploadMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

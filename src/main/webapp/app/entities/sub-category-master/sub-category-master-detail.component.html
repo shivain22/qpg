@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="subCategoryMaster">
+            <h2><span>Sub Category </span> {{ subCategoryMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ subCategoryMaster.name }}</span>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <div *ngIf="subCategoryMaster.categoryMaster">
+                        <a [routerLink]="['/category-master', subCategoryMaster?.categoryMaster?.id, 'view']">{{ subCategoryMaster?.categoryMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Course</span></dt>
+                <dd>
+                    <div *ngIf="subCategoryMaster?.categoryMaster?.courseMaster">
+                        <a [routerLink]="['/course-master', subCategoryMaster?.categoryMaster?.courseMaster?.id, 'view']">{{ subCategoryMaster?.categoryMaster?.courseMaster?.name }}</a>
+                    </div>
+                </dd>
+
+                <dt><span>Department</span></dt>
+                <dd>
+                    <div *ngIf="subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster">
+                        <a [routerLink]="['/department-master', subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.id, 'view']">{{ subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.name }}</a>
+                    </div>
+                </dd>
+
+                <dt><span>College</span></dt>
+                <dd>
+                    <div *ngIf="subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster">
+                        <a [routerLink]="['/college-master', subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.id, 'view']">{{ subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.name }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+
+
+
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/sub-category-master', subCategoryMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

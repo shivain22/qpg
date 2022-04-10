@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="answerMaster">
+            <h2><span>Answer Master</span> {{ answerMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Text</span></dt>
+                <dd>
+                    <span>{{ answerMaster.text }}</span>
+                </dd>
+                <dt><span>Correct</span></dt>
+                <dd>
+                    <span>{{ answerMaster.correct }}</span>
+                </dd>
+                <dt><span>Question Master</span></dt>
+                <dd>
+                    <div *ngIf="answerMaster.questionMaster">
+                        <a [routerLink]="['/question-master', answerMaster.questionMaster?.id, 'view']">{{ answerMaster.questionMaster?.text }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/answer-master', answerMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

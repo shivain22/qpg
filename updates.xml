@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<updateDescriptor baseUrl="">
+  <entry targetMediaFileId="26" updatableVersionMin="" updatableVersionMax="" fileName="qpg_windows-x64_1.exe" newVersion="1" newMediaFileId="26" fileSize="179373568" md5Sum="7016f38fed7a48928b4dc58193f943da" sha256Sum="cc2e492f03866fa1f6e189475f7b8d49abfc3990e5ad788927135bb22175c71d" bundledJre="windows-amd64-11.0.12.tar.gz" archive="false" singleBundle="false">
+    <comment language="en" />
+  </entry>
+</updateDescriptor>

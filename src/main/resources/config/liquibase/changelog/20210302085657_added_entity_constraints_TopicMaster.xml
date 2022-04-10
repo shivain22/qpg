@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity TopicMaster.
+    -->
+    <changeSet id="20210302085657-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="sub_subject_master_id"
+                                 baseTableName="topic_master"
+                                 constraintName="fk_topic_master_sub_subject_master_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="sub_subject_master"/>
+
+    </changeSet>
+</databaseChangeLog>

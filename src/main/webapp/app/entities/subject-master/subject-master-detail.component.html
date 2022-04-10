@@ -1,0 +1,60 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="subjectMaster">
+            <h2><span>Subject </span> {{ subjectMaster.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{ subjectMaster.name }}</span>
+                </dd>
+                <dt><span>Sub Category</span></dt>
+                <dd>
+                    <div *ngIf="subjectMaster?.subCategoryMaster">
+                        <a [routerLink]="['/sub-category-master', subjectMaster?.subCategoryMaster?.id, 'view']">{{ subjectMaster?.subCategoryMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <div *ngIf="subjectMaster?.subCategoryMaster?.categoryMaster">
+                        <a [routerLink]="['/category-master', subjectMaster?.subCategoryMaster?.categoryMaster?.id, 'view']">{{ subjectMaster?.subCategoryMaster?.categoryMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Course</span></dt>
+                <dd>
+                    <div *ngIf="subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster">
+                        <a [routerLink]="['/course-master', subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.id, 'view']">{{ subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.name }}</a>
+                    </div>
+                </dd>
+                <dt><span>Department</span></dt>
+                <dd>
+                    <div *ngIf="subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster">
+                        <a [routerLink]="['/department-master', subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.id, 'view']">{{ subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.name }}</a>
+                    </div>
+                </dd>
+
+                <dt><span>College</span></dt>
+                <dd>
+                    <div *ngIf="subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster">
+                        <a [routerLink]="['/college-master', subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.id, 'view']">{{ subjectMaster?.subCategoryMaster?.categoryMaster?.courseMaster?.departmentMaster?.collegeMaster?.name }}</a>
+                    </div>
+                </dd>
+            </dl>
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/subject-master', subjectMaster.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

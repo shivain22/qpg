@@ -1,0 +1,156 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-question-blue-print-master-heading">Create or edit a Question Blue Print</h2>
+            <h5>Enter the number of questions in the Details Matrix below ( Total marks will be auto calculated ) </h5>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name" formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required">This field is required.</small>
+                        <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.minlength">
+                        This field is required to be at least 5 characters. </small>
+                        <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.maxlength"> This field cannot be longer than 100 characters.</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_totalMarks">Total Marks    :: Part A:<span>{{partAtotalMarks}}</span> | Part B:<span>{{partBtotalMarks}}</span></label>
+                    <input type="number" class="form-control" name="description" id="field_totalMarks" formControlName="totalMarks" readonly/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_partaDuration"> Part A Duration        ::  <span>Total Duration</span>    <span>{{ editForm.get('partaDuration')?.value + editForm.get('partbDuration')?.value }} Mins</span></label>
+                    <input type="number" class="form-control" name="description" id="field_partaDuration"  formControlName="partaDuration"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_partbDuration">Part B Duration</label>
+                    <input type="number" class="form-control" name="description" id="field_partbDuration" formControlName="partbDuration"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description" formControlName="description"/>
+                </div>
+            </div>
+
+
+
+                <table  formArrayName="questionBluePrintDetails" border="1">
+                    <tr><td>Part A</td></tr>
+                    <ng-container *ngFor="let questionBluePrintDetail of getQuestionBluePrintDetails(); let j = index" >
+                        <ng-container *ngIf="questionBluePrintDetail.value.questionTypeMaster.questionTypeCategoryMaster?.name === 'Part A'">
+                            <tr>
+                                <td [formGroupName]="j">
+                                        <table border="1">
+                                            <tr>
+                                                <td colspan="4" style="margin-bottom:0px !important;">
+                                                    <div formGroupName="questionTypeMaster">
+                                                        <label style="margin-bottom:0px !important;"><b>{{questionBluePrintDetail.value.questionTypeMaster.name}} ( {{questionBluePrintDetail.value.questionTypeMaster.defaultWeightage}} marks ea ) </b></label>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="margin-bottom:0px !important;">
+                                                        <label style="margin-bottom:0px !important;" for="field_{{j}}_questionChoiceMaster">Choice Options {{ questionBluePrintDetail.value.questionChoiceMaster?.id}}</label>
+                                                        <select id="field_{{j}}_questionChoiceMaster" name="id" name="questionChoiceMaster"  formControlName="questionChoiceMaster">
+                                                            <option *ngIf="!questionBluePrintDetail.value.questionChoiceMaster" [ngValue]="null" selected></option>
+                                                            <option [ngValue]="questionChoiceMasterOption.id === questionBluePrintDetail.value.questionChoiceMaster?.id ? questionBluePrintDetail.value.questionChoiceMaster : questionChoiceMasterOption" *ngFor="let questionChoiceMasterOption of questionchoicemasters; trackBy: trackByQuestionChoiceMasterId">{{ questionChoiceMasterOption.name }}</option>
+                                                        </select>
+                                                </td>
+
+                                                <td style="margin-bottom:0px !important;">
+                                                        <label style="margin-bottom:0px !important;" for="field_{{j}}_difficultyTypeMaster">Difficulty</label>
+                                                        <select id="field_{{j}}_difficultyTypeMaster" name="id" name="name" formControlName="difficultyTypeMaster">
+                                                            <option *ngIf="!questionBluePrintDetail.value.difficultyTypeMaster" [ngValue]="null" selected></option>
+                                                            <option [ngValue]="difficultyTypeMasterOption.id=== questionBluePrintDetail.value.difficultyTypeMaster?.id ? questionBluePrintDetail.value.difficultyTypeMaster:difficultyTypeMasterOption" *ngFor="let difficultyTypeMasterOption of difficultytypemasters; trackBy: trackByDifficultyMasterId">{{ difficultyTypeMasterOption.name }}</option>
+                                                        </select>
+                                                </td>
+                                                <td style="margin-bottom:0px !important;">
+                                                    <input type="text" id="field_{{j}}_id_parta" name="id" formControlName="id" readonly hidden="true" size="4"  min="0" max="99"/>
+                                                    <label style="margin-bottom:0px !important;"  for="field_totalQuestions_parta">Total Questions</label>
+                                                    <input type="number" id="field_totalQuestions_parta" name="totalQuestions" (change)="calculateTotalPartMarks($event,questionBluePrintDetail.value.questionTypeMaster)" formControlName="totalQuestions" placeholder="0" min="0" max="99" />
+                                                </td>
+                                                <td style="margin-bottom:0px !important;">
+                                                     <label style="margin-bottom:0px !important;" for="field_{{j}}_numOfChoices_parta">Number of choices</label>
+                                                    <input type="number" id="field_{{j}}_numOfChoices_parta" name="numOfChoices" formControlName="numOfChoices" placeholder="0"  min="0" max="99"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                </td>
+                            </tr>
+                            <tr><td>
+                                <input type="number" hidden="true"/>
+                            </td></tr>
+                        </ng-container>
+                    </ng-container>
+                </table>
+                <br /><br /><br />
+            <table  formArrayName="questionBluePrintDetails" border="1">
+                <tr><td>Part B</td></tr>
+                <ng-container *ngFor="let questionBluePrintDetail of getQuestionBluePrintDetails(); let j = index" >
+                    <ng-container *ngIf="questionBluePrintDetail.value.questionTypeMaster.questionTypeCategoryMaster?.name === 'Part B'">
+                        <tr>
+                            <td [formGroupName]="j">
+                                    <table border="1">
+                                        <tr>
+                                            <td colspan="4" style="margin-bottom:0px !important;">
+                                                <div formGroupName="questionTypeMaster">
+                                                    <label style="margin-bottom:0px !important;"><b>{{questionBluePrintDetail.value.questionTypeMaster.name}} ( {{questionBluePrintDetail.value.questionTypeMaster.defaultWeightage}} marks ea ) </b></label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="margin-bottom:0px !important;">
+                                                <label style="margin-bottom:0px !important;" for="field_{{j}}_questionChoiceMaster">Choice Options {{ questionBluePrintDetail.value.questionChoiceMaster?.id}}</label>
+                                                <select id="field_{{j}}_questionChoiceMaster_partb" name="id" name="questionChoiceMaster"  formControlName="questionChoiceMaster">
+                                                    <option *ngIf="!questionBluePrintDetail.value.questionChoiceMaster" [ngValue]="null" selected></option>
+                                                    <option [ngValue]="questionChoiceMasterOption.id === questionBluePrintDetail.value.questionChoiceMaster?.id ? questionBluePrintDetail.value.questionChoiceMaster : questionChoiceMasterOption" *ngFor="let questionChoiceMasterOption of questionchoicemasters; trackBy: trackByQuestionChoiceMasterId">{{ questionChoiceMasterOption.name }}</option>
+                                                </select>
+                                            </td>
+
+                                            <td style="margin-bottom:0px !important;">
+                                                <label style="margin-bottom:0px !important;" for="field_{{j}}_difficultyTypeMaster">Difficulty</label>
+                                                <select id="field_{{j}}_difficultyTypeMaster_partb" name="id" name="name" formControlName="difficultyTypeMaster">
+                                                    <option *ngIf="!questionBluePrintDetail.value.difficultyTypeMaster" [ngValue]="null" selected></option>
+                                                    <option [ngValue]="difficultyTypeMasterOption.id=== questionBluePrintDetail.value.difficultyTypeMaster?.id ? questionBluePrintDetail.value.difficultyTypeMaster:difficultyTypeMasterOption" *ngFor="let difficultyTypeMasterOption of difficultytypemasters; trackBy: trackByDifficultyMasterId">{{ difficultyTypeMasterOption.name }}</option>
+                                                </select>
+                                            </td>
+                                            <td style="margin-bottom:0px !important; ">
+                                                <input type="text" id="field_{{j}}_id_partb" name="id" formControlName="id" readonly hidden="true" size="4"  min="0" max="99"/>
+                                                <label  for="field_totalQuestions_partb">Total Questions</label>
+                                                <input type="number" id="field_totalQuestions_partb" name="totalQuestions" formControlName="totalQuestions" (change)="calculateTotalPartMarks($event,questionBluePrintDetail.value.questionTypeMaster)" placeholder="0" min="0" max="99" />
+                                            </td>
+                                            <td style="margin-bottom:0px !important;">
+                                                <label for="field_{{j}}_numOfChoices_partb">Number of choices</label>
+                                                <input type="number" id="field_{{j}}_numOfChoices_partb" name="numOfChoices" formControlName="numOfChoices" placeholder="0"  min="0" max="99"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </table>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "questionTypeMaster",
+      "otherEntityName": "questionTypeMaster",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "name",
+      "otherEntityRelationshipName": "questionTypeMaster"
+    },
+    {
+      "relationshipName": "difficultyTypeMaster",
+      "otherEntityName": "difficultyTypeMaster",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
+      "otherEntityRelationshipName": "difficultyTypeMaster"
+    },
+    {
+      "relationshipName": "subTopicMaster",
+      "otherEntityName": "subTopicMaster",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "name",
+      "otherEntityRelationshipName": "subTopicMaster"
+    },
+    {
+      "relationshipName": "parentQuestionMaster",
+      "otherEntityName": "questionMaster",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "text",
+      "otherEntityRelationshipName": "questionMaster"
+    },
+    {
+      "relationshipName": "questionMaster",
+      "otherEntityName": "questionMaster",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "parentQuestionMaster"
+    },
+    {
+      "relationshipName": "answerMaster",
+      "otherEntityName": "answerMaster",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "questionMaster"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "text",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "weightage",
+      "fieldType": "Double"
+    }
+  ],
+  "changelogDate": "20210302145758",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "serviceImpl",
+  "entityTableName": "question_master",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": true,
+  "pagination": "pagination"
+}

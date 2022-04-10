@@ -1,0 +1,59 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [],
+  "fields": [
+    {
+      "fieldName": "qbFile",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "collegeMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "departmentMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "courseMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "categoryMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subCategoryMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subjectMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subSubjectMaster",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    },
+    {
+      "fieldName": "topicMaster",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subTopicMaster",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20210425125930",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "serviceImpl",
+  "entityTableName": "qb_master",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": true,
+  "pagination": "pagination"
+}

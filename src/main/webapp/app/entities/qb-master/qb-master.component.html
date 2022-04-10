@@ -1,0 +1,92 @@
+<div>
+    <h2 id="page-heading">
+        <span>Qb Masters</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-qb-master" [routerLink]="['/qb-master/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Qb Master
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="qbMasters?.length === 0">
+        <span>No qbMasters found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="qbMasters && qbMasters.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="qbFile"><span>Qb File</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="collegeMaster"><span>College Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="departmentMaster"><span>Department Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="courseMaster"><span>Course Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="categoryMaster"><span>Category Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subCategoryMaster"><span>Sub Category Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subjectMaster"><span>Subject Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subSubjectMaster"><span>Sub Subject Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="topicMaster"><span>Topic Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="subTopicMaster"><span>Sub Topic Master</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let qbMaster of qbMasters ;trackBy: trackId">
+                    <td><a [routerLink]="['/qb-master', qbMaster.id, 'view']">{{ qbMaster.id }}</a></td>
+                    <td>
+                        <a *ngIf="qbMaster.qbFile" (click)="openFile(qbMaster.qbFileContentType, qbMaster.qbFile)">open</a>
+                        <span *ngIf="qbMaster.qbFile">{{ qbMaster.qbFileContentType }}, {{ byteSize(qbMaster.qbFile) }}</span>
+                    </td>
+                    <td>{{ qbMaster.collegeMaster }}</td>
+                    <td>{{ qbMaster.departmentMaster }}</td>
+                    <td>{{ qbMaster.courseMaster }}</td>
+                    <td>{{ qbMaster.categoryMaster }}</td>
+                    <td>{{ qbMaster.subCategoryMaster }}</td>
+                    <td>{{ qbMaster.subjectMaster }}</td>
+                    <td>{{ qbMaster.subSubjectMaster }}</td>
+                    <td>{{ qbMaster.topicMaster }}</td>
+                    <td>{{ qbMaster.subTopicMaster }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/qb-master', qbMaster.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/qb-master', qbMaster.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(qbMaster)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="qbMasters && qbMasters.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>
